@@ -7,16 +7,16 @@ module.exports = {
 				root: ['.'],
 				extensions: ['.ios.js', '.android.js', '.ios.jsx', '.android.jsx', '.js', '.jsx', '.json', '.ts', '.tsx'],
 				alias: {
-					"src": "./src",
+					'src': './src',
 				},
 			},
 		],
 	],
 	overrides: [{
-		"plugins": [
-			["@babel/plugin-transform-private-methods", {
-				"loose": true
-			}]
-		]
-	}]
+		'plugins': [
+			['@babel/plugin-transform-private-methods', {
+				'loose': true,
+			}],
+		],
+	}],
 };

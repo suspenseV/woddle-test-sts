@@ -1,7 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import { moderateScale, moderateVerticalScale, scale } from 'react-native-size-matters';
 
-const { width } = Dimensions.get('window')
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
 	cardsContainer: {
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 		fontSize: scale(12),
 		marginBottom: moderateVerticalScale(10),
 		color: '#000000',
-		fontFamily: 'Roboto-Regular'
+		fontFamily: 'Roboto-Regular',
 	},
 	cardValueContainer: {
 		marginBottom: moderateVerticalScale(16),

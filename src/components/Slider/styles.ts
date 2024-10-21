@@ -19,6 +19,21 @@ const styles = StyleSheet.create({
 		width: width - moderateScale(16, 0.9) * 2,
 		borderRadius: 23,
 	},
+	descriptionContainer: {
+		position: 'absolute',
+		overflow: 'hidden',
+		top: 10,
+		left: 10,
+		backgroundColor: '#F3F7FAB2',
+		borderRadius: 23,
+		paddingHorizontal: 12,
+		paddingVertical: 12,
+	},
+	descriptionSubContainer: {
+		width: '100%',
+		justifyContent: 'flex-start',
+		alignItems: 'flex-start',
+	},
 	indicatorsRow: {
 		left: 0,
 		width: width - moderateScale(16, 0.9) * 2,
@@ -38,20 +53,20 @@ const styles = StyleSheet.create({
 		color: '#363636',
 		fontSize: scale(14),
 		fontFamily: 'Cabin-Bold',
-		marginRight: 27
+		marginRight: 27,
 	},
 	babyAge: {
 		color: '#363636',
 		fontSize: scale(14),
-		fontFamily: 'Cabin-Regular'
+		fontFamily: 'Cabin-Regular',
 	},
 	sexIcon: {
-		width: scale(12),
+		width: scale(13),
 		height: verticalScale(12),
 		marginTop: verticalScale(3),
-		position: "absolute",
+		position: 'absolute',
 		right: 0,
-		top: 0
+		top: 0,
 	},
 });
 

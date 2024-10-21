@@ -1,14 +1,10 @@
-import React, { useRef, useState } from 'react';
-import { View, Image, Text, Animated, Dimensions } from 'react-native';
-import _, { head } from 'lodash';
-
-import styles from './styles';
+import React, { useRef } from 'react';
+import { View, Image, Text, Animated, Dimensions, ImageSourcePropType } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 
-const { width } = Dimensions.get('window');
+import styles from './styles';
 
-// @ts-ignore
-import sexIcon from 'src/assets/images/sex.png'
+const { width } = Dimensions.get('window');
 
 const SLIDES_DATA = [
 	{
@@ -16,21 +12,21 @@ const SLIDES_DATA = [
 		description: 'Christian Bowen',
 		image: require('src/assets/images/baby.png'),
 		year: '1y 2m',
-		icon: sexIcon
+		icon: require('src/assets/images/sex.png'),
 	},
 	{
 		key: 2,
 		description: 'Christian Bowen Older',
 		image: require('src/assets/images/baby.png'),
 		year: '2y 5m',
-		icon: sexIcon
+		icon: require('src/assets/images/sex.png'),
 	},
 	{
 		key: 3,
 		description: 'Christian Bowen II',
 		image: require('src/assets/images/baby.png'),
 		year: '1y, 3m',
-		icon: sexIcon
+		icon: require('src/assets/images/sex.png'),
 	},
 ];
 
@@ -39,8 +35,29 @@ const descriptionHeight = moderateScale(54, 1.1);
 const inputRange = SLIDES_DATA.map((item, i) => i * (width - moderateScale(16, 0.9) * 2));
 const sliderWidth = width - moderateScale(16, 0.9) * 2;
 
-// @ts-ignore
-const Indicator = ({ index, scrollX }) => {
+interface IndicatorProps {
+	index: number;
+	scrollX: Animated.Value;
+}
+
+interface IndicatorsProps {
+	scrollX: Animated.Value;
+}
+
+interface ISliderItem {
+	key: number;
+	description: string;
+	image: ImageSourcePropType;
+	year: string;
+	icon: string;
+}
+
+interface RenderItemProps {
+	item: ISliderItem;
+	index: number;
+}
+
+const Indicator = ({ index, scrollX }: IndicatorProps) => {
 	const outputRangeBorder = SLIDES_DATA.map((item, i) => (i === index ? 0 : 1.2));
 	const outputRangeBackground = SLIDES_DATA.map((item, i) => (i === index ? '#000' : 'transparent'));
 
@@ -59,8 +76,7 @@ const Indicator = ({ index, scrollX }) => {
 	);
 };
 
-// @ts-ignore
-const Indicators = ({ scrollX, activeIndex }) => {
+const Indicators = ({ scrollX }: IndicatorsProps) => {
 	return (
 		<View style={styles.indicatorsRow}>
 			{SLIDES_DATA.map((item, index) => {
@@ -76,19 +92,17 @@ const Indicators = ({ scrollX, activeIndex }) => {
 	);
 };
 
-// @ts-ignore
-const Description = ({ scrollX }) => {
+const Description = ({ scrollX }: IndicatorsProps) => {
 	const translateY = scrollX.interpolate({
 		inputRange,
 		outputRange: SLIDES_DATA.map((i, index) => -(index * descriptionHeight)),
-		// outputRange: [0, 0, 0],
 	});
 
 	return (
-		<View style={{ position: 'absolute', overflow: 'hidden', top: 10, left: 10, height: descriptionHeight, backgroundColor: '#F3F7FAB2', borderRadius: 23, paddingHorizontal: 12, paddingVertical: 12 }}>
-			{SLIDES_DATA.map((item, index) => {
+		<View style={[styles.descriptionContainer, { height: descriptionHeight }]}>
+			{SLIDES_DATA.map((item) => {
 				return (
-					<Animated.View key={item.key} style={[{ height: descriptionHeight, width: '100%', justifyContent: 'flex-start', alignItems: 'flex-start' }, { transform: [{ translateY }] }]}>
+					<Animated.View key={item.key} style={[styles.descriptionSubContainer, { height: descriptionHeight, transform: [{ translateY }] }]}>
 						<Image source={item.icon} style={styles.sexIcon} />
 						<Text style={styles.babyName}>{item.description}</Text>
 						<Text style={styles.babyAge}>{item.year}</Text>
@@ -101,21 +115,8 @@ const Description = ({ scrollX }) => {
 
 const Slider = () => {
 	const scrollX = useRef(new Animated.Value(0)).current;
-	const [activeIndex, setActiveIndex] = useState<number>(0);
 
-	const onViewableItemsChanged = ({
-		changed,
-	}: {
-		changed: Array<{ index: number; isViewable: boolean }>;
-	}) => {
-		const currentIndex = _.findIndex(changed, c => c.isViewable);
-		if (currentIndex > -1) {
-			setActiveIndex(changed[currentIndex]?.index);
-		}
-	};
-
-	// @ts-ignore
-	const renderItem = ({ item, index }) => {
+	const renderItem = ({ item, index }: RenderItemProps) => {
 		const opacity = scrollX.interpolate({
 			inputRange,
 			outputRange: SLIDES_DATA.map((el, i) => (i === index ? 1 : 0.4)),
@@ -139,8 +140,6 @@ const Slider = () => {
 				bounces={false}
 				renderItem={renderItem}
 				horizontal
-				// @ts-ignore
-				onViewableItemsChanged={onViewableItemsChanged}
 				showsHorizontalScrollIndicator={false}
 				pagingEnabled
 				onScroll={Animated.event(
@@ -149,7 +148,7 @@ const Slider = () => {
 				)}
 			/>
 			<Description scrollX={scrollX} />
-			<Indicators scrollX={scrollX} activeIndex={activeIndex} />
+			<Indicators scrollX={scrollX} />
 		</View>
 	);
 };

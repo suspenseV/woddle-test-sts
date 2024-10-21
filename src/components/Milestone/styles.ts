@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 		overflow: 'hidden',
 		alignSelf: 'center',
 		borderWidth: 1,
-		height: moderateVerticalScale(260, 0)
+		height: moderateVerticalScale(260, 0),
 	},
 	milestoneImage: {
 		width: '100%',
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 		fontSize: scale(12),
 		fontFamily: 'Roboto-Regular',
 		color: '#000000',
-		marginTop: 10
+		marginTop: 10,
 	},
 	milestoneValueContainer: {
 		justifyContent: 'space-between',
@@ -39,15 +39,13 @@ const styles = StyleSheet.create({
 		fontSize: scale(32),
 		fontFamily: 'Roboto-Light',
 		color: '#000000',
-		marginTop: moderateVerticalScale(11)
+		marginTop: moderateVerticalScale(11),
 	},
-	arrowButton: {
-		
-	},
+	arrowButton: {},
 	arrowIcon: {
 		width: scale(33),
-		height: scale(33)
-	}
+		height: scale(33),
+	},
 });
 
 export default styles;

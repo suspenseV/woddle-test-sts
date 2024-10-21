@@ -1,18 +1,14 @@
-import { Image, View } from "react-native"
-import styles from "./styles"
-// @ts-ignore
-import babyBannerImage from 'src/assets/images/baby_banner.png'
+import React from 'react';
+import { Image, View } from 'react-native';
+import styles from './styles';
 
-const AdBanner = () => {
-	return (
-		<View style={styles.adBanner}>
-			<Image
-				source={babyBannerImage}
-				style={styles.adBannerImage}
-			/>
-		</View>
-	)
+const AdBanner = () => (
+	<View style={styles.adBanner}>
+		<Image
+			source={require('src/assets/images/baby_banner.png')}
+			style={styles.adBannerImage}
+		/>
+	</View>
+);
 
-}
-
-export { AdBanner }
+export { AdBanner };
